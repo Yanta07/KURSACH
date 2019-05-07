@@ -12,5 +12,5 @@ env:
 
 script:
   - dotnet restore
-  - dotnet build calculator.sln -c Release
+  - dotnet build calculator.sln -c Release Calculator/calculator.csproj
   - dotnet test -c Release --no-build CalculatorUnitTests/CalculatorUnitTests.csproj
