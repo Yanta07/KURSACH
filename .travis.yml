@@ -1,2 +1,7 @@
 language: csharp
 solution: calculator.sln
+ branches:
+   only:
+     - develop
+-    - release
+
