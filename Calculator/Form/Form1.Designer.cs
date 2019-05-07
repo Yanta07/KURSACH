@@ -1,4 +1,4 @@
-﻿namespace calculator
+﻿namespace calculator.Form
 {
     partial class Form1
     {

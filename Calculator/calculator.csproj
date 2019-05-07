@@ -68,6 +68,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="InterfaceCalc.cs" />
+    <Compile Include="Parser\AST\BinaryExprAST.cs" />
+    <Compile Include="Parser\AST\ExprAST.cs" />
+    <Compile Include="Parser\AST\FunctionExprAST.cs" />
+    <Compile Include="Parser\AST\VariableExprAST.cs" />
+    <Compile Include="Parser\Context\IContext.cs" />
+    <Compile Include="Parser\AST\NumberExprAST.cs" />
+    <Compile Include="Parser\AST\UnaryExprAST.cs" />
+    <Compile Include="Parser\Context\ReflectionContext.cs" />
+    <Compile Include="Parser\Exceptions\SyntaxException.cs" />
+    <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\Token.cs" />
     <Compile Include="Parser\Tokenizer.cs" />
     <Compile Include="Program.cs" />
