@@ -70,6 +70,9 @@ namespace calculator.Parser
                     Token = Token.RParen;
                     return;
                 case ',':
+                    NextChar();
+                    Token = Token.Comma;
+                    return;
                 case '.':
                     NextChar();
                     Token = Token.NumberSplit;
@@ -77,15 +80,15 @@ namespace calculator.Parser
             }
 
 
-            if (char.IsDigit(_curChar) || _curChar == '.' || _curChar == ',')
+            if (char.IsDigit(_curChar) || _curChar == '.')
             {
                 var stringBuilder = new StringBuilder();
                 bool decimalPoint = false;
 
-                while (char.IsDigit(_curChar) || (!decimalPoint && (_curChar == '.' || _curChar == ',')))
+                while (char.IsDigit(_curChar) || (!decimalPoint && _curChar == '.'))
                 {
                     stringBuilder.Append(_curChar);
-                    decimalPoint = _curChar == '.' || _curChar == ',';
+                    decimalPoint = _curChar == '.';
                     NextChar();
                 }
 

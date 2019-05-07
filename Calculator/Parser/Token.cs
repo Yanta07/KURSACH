@@ -11,6 +11,7 @@
         LParen,
         RParen,
         NumberSplit,
+        Comma,
         Eof = -1
     }
 }
