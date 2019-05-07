@@ -1,0 +1,15 @@
+language: csharp
+mono: none
+dotnet: 2.2.203
+
+git:
+  depth: 10
+
+env:
+    global:
+        - DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+script:
+  - dotnet restore
+  - dotnet build calculator.sln -c Release
+  - dotnet test -c Release --no-build CalculatorUnitTests/CalculatorUnitTests.csproj
