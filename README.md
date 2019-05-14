@@ -1,2 +1,2 @@
-# GameLife 
-[![Build Status](https://travis-ci.com/Yanta07/calculator.svg?branch=master)](https://travis-ci.com/Yanta07/KURSACH)
+# Calculator
+[![Build Status](https://travis-ci.com/Yanta07/calculator.sln?branch=master)](https://travis-ci.com/Yanta07/KURSACH)
