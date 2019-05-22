@@ -3,5 +3,5 @@ solution: calculator.sln
  branches:
    only:
      - master
--    - dev
+     - dev
 
