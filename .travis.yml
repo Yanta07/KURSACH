@@ -4,4 +4,3 @@ solution: calculator.sln
    only:
      - master
      - dev
-
