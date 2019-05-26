@@ -60,6 +60,8 @@ namespace calculator.Form
             this.labelNumber = new System.Windows.Forms.Label();
             this.buttonChangeSign = new System.Windows.Forms.Button();
             this.buttonMRC = new System.Windows.Forms.Button();
+            this.LParan = new System.Windows.Forms.Button();
+            this.RParan = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,7 +182,7 @@ namespace calculator.Form
             this.buttonPoint.Name = "buttonPoint";
             this.buttonPoint.Size = new System.Drawing.Size(45, 38);
             this.buttonPoint.TabIndex = 10;
-            this.buttonPoint.Text = ",";
+            this.buttonPoint.Text = ".";
             this.buttonPoint.UseVisualStyleBackColor = true;
             this.buttonPoint.Click += new System.EventHandler(this.buttonPoint_Click);
             // 
@@ -393,6 +395,28 @@ namespace calculator.Form
             this.buttonMRC.UseVisualStyleBackColor = true;
             this.buttonMRC.Click += new System.EventHandler(this.buttonMRC_Click);
             // 
+            // LParan
+            // 
+            this.LParan.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.LParan.Location = new System.Drawing.Point(57, 154);
+            this.LParan.Name = "LParan";
+            this.LParan.Size = new System.Drawing.Size(45, 38);
+            this.LParan.TabIndex = 20;
+            this.LParan.Text = "(";
+            this.LParan.UseVisualStyleBackColor = true;
+            this.LParan.Click += new System.EventHandler(this.LParan_Click);
+            // 
+            // RParan
+            // 
+            this.RParan.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.RParan.Location = new System.Drawing.Point(57, 212);
+            this.RParan.Name = "RParan";
+            this.RParan.Size = new System.Drawing.Size(45, 38);
+            this.RParan.TabIndex = 20;
+            this.RParan.Text = ")";
+            this.RParan.UseVisualStyleBackColor = true;
+            this.RParan.Click += new System.EventHandler(this.RParan_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -406,6 +430,8 @@ namespace calculator.Form
             this.Controls.Add(this.buttonMMinus);
             this.Controls.Add(this.buttonMPlus);
             this.Controls.Add(this.buttonSqrtX);
+            this.Controls.Add(this.RParan);
+            this.Controls.Add(this.LParan);
             this.Controls.Add(this.buttonFactorial);
             this.Controls.Add(this.buttonDegreeY);
             this.Controls.Add(this.buttonSquare);
@@ -467,6 +493,8 @@ namespace calculator.Form
         private System.Windows.Forms.Label labelNumber;
         private System.Windows.Forms.Button buttonChangeSign;
         private System.Windows.Forms.Button buttonMRC;
+        private System.Windows.Forms.Button LParan;
+        private System.Windows.Forms.Button RParan;
     }
 }
 

@@ -1,13 +1,18 @@
 ﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 using System;
+using System.Globalization;
 using System.Windows.Forms;
+using calculator.CalcMathematics;
+using calculator.Parser.Context;
+using calculator.Parser.Exceptions;
 
 namespace calculator.Form
 {
     public partial class Form1 : System.Windows.Forms.Form
     {
-        Calc C;
+        readonly Calc _c;
+        private CalcMath _cMath;
 
         int k; //количество нажатий кнопки MRC
 
@@ -15,7 +20,8 @@ namespace calculator.Form
         {
             InitializeComponent();
 
-            C = new Calc();
+            _cMath = new CalcMath();
+            _c = new Calc();
 
             labelNumber.Text = "0";
         }
@@ -25,8 +31,7 @@ namespace calculator.Form
         {
             labelNumber.Text = "0";
 
-            C.Clear_A();
-            FreeButtons();
+            _c.Clear_A();
 
             k = 0;
         }
@@ -42,8 +47,48 @@ namespace calculator.Form
 
         private void buttonPoint_Click(object sender, EventArgs e)
         {
-            if ((labelNumber.Text.IndexOf(",") == -1) && (labelNumber.Text.IndexOf("∞") == -1))
-                labelNumber.Text += ",";
+            RemoveMultipleDots();
+            if (labelNumber.Text.IndexOf("∞", StringComparison.Ordinal) == -1)
+                labelNumber.Text += ".";
+        }
+
+        private double TryExecuteExpression()
+        {
+            var context = new ReflectionContext(_cMath);
+            double value = 0;
+            try
+            {
+                value = Parser.Parser.Parse(labelNumber.Text).Eval(context);
+            }
+            catch (SyntaxException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            return value;
+        }
+
+        private void RemoveMultipleDots()
+        {
+            int n;
+            if ((n = labelNumber.Text.IndexOf('.')) != -1)
+                labelNumber.Text = string.Concat(labelNumber.Text.Substring(0, n + 1), labelNumber.Text.Substring(n + 1).Replace(".", ""));
+        }
+
+        string GetNumberFromEnd(string text)
+        {
+            int i = text.Length - 1;
+            while (i >= 0)
+            {
+                if (text[i] == '.')
+                {
+                    i--;
+                    continue;
+                }
+                if (!char.IsNumber(text[i])) break;
+                i--;
+            }
+            return text.Substring(i + 1);
         }
 
         private void button0_Click(object sender, EventArgs e)
@@ -120,271 +165,136 @@ namespace calculator.Form
         private void CorrectNumber()
         {
             //если есть знак "бесконечность" - не даёт писать цифры после него
-            if (labelNumber.Text.IndexOf("∞") != -1)
+            if (labelNumber.Text.IndexOf("∞", StringComparison.Ordinal) != -1)
                 labelNumber.Text = labelNumber.Text.Substring(0, labelNumber.Text.Length - 1);
 
             //ситуация: слева ноль, а после него НЕ запятая, тогда ноль можно удалить
-            if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(",") != 1))
+            if (labelNumber.Text[0] == '0' && labelNumber.Text.IndexOf(".", StringComparison.Ordinal) != 1)
                 labelNumber.Text = labelNumber.Text.Remove(0, 1);
 
             //аналогично предыдущему, только для отрицательного числа
             if (labelNumber.Text[0] == '-')
-                if (labelNumber.Text[1] == '0' && (labelNumber.Text.IndexOf(",") != 2))
+                if (labelNumber.Text[1] == '0' && labelNumber.Text.IndexOf(".", StringComparison.Ordinal) != 2)
                     labelNumber.Text = labelNumber.Text.Remove(1, 1);
         }
-
-
 
         //кнопка Равно
         private void buttonCalc_Click(object sender, EventArgs e)
         {
-            if (!buttonMult.Enabled)
-                labelNumber.Text = C.Multiplication(Convert.ToDouble(labelNumber.Text)).ToString();
+            labelNumber.Text = TryExecuteExpression().ToString(CultureInfo.InvariantCulture);
 
-            if (!buttonDiv.Enabled)
-                labelNumber.Text = C.Division(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonPlus.Enabled)
-                labelNumber.Text = C.Sum(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonMinus.Enabled)
-                labelNumber.Text = C.Subtraction(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonSqrtX.Enabled)
-                labelNumber.Text = C.SqrtX(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonDegreeY.Enabled)
-                labelNumber.Text = C.DegreeY(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            C.Clear_A();
-            FreeButtons();
+            _c.Clear_A();
 
             k = 0;
         }
 
-
-
-
-
         //кнопка Умножение
         private void buttonMult_Click(object sender, EventArgs e)
         {
-            if(CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonMult.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text += "*";
         }
 
         //кнопка Деление
         private void buttonDiv_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonDiv.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text += "/";
         }
 
         //кнопка Сложение
         private void buttonPlus_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonPlus.Enabled = false;
-
-                labelNumber.Text += "+";
-            }
+            labelNumber.Text += "+";
         }
 
         //кнопка Вычитание
         private void buttonMinus_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonMinus.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text += "-";
         }
 
         //кнопка Корень произвольной степени
         private void buttonSqrtX_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonSqrtX.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text += "@";
         }
 
         //кнопка Возведение в произвольную степень
         private void buttonDegreeY_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonDegreeY.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text += "^";
         }
 
         //кнопка Корень квадратный
         private void buttonSqrt_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                labelNumber.Text = C.Sqrt().ToString();
-
-                C.Clear_A();
-                FreeButtons();
-            }
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Root(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Root(" + lastNumber + ")";
         }
 
         //кнопка Квадрат числа
         private void buttonSquare_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                labelNumber.Text = C.Square().ToString();
-
-                C.Clear_A();
-                FreeButtons();
-            }
+            labelNumber.Text += "^2";
         }
 
         //кнопка Факториал
         private void buttonFactorial_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
-                    ((Convert.ToDouble(labelNumber.Text) >= 0.0)))
-                {
-                    C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                    labelNumber.Text = C.Factorial().ToString();
-
-                    C.Clear_A();
-                    FreeButtons();
-                }
-                else
-                    MessageBox.Show("Число должно быть >= 0 и целым!");
-            }
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Fact(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "")+"Fact("+lastNumber+")";
         }
 
         //кнопка М+
         private void buttonMPlus_Click(object sender, EventArgs e)
         {
-            C.M_Sum(Convert.ToDouble(labelNumber.Text));
+            _c.M_Sum(TryExecuteExpression());
         }
 
         //кнопка М-
         private void buttonMMinus_Click(object sender, EventArgs e)
         {
-            C.M_Subtraction(Convert.ToDouble(labelNumber.Text));
+            _c.M_Subtraction(TryExecuteExpression());
         }
 
         //кнопка М*
         private void buttonMMult_Click(object sender, EventArgs e)
         {
-            C.M_Multiplication(Convert.ToDouble(labelNumber.Text));
+            _c.M_Multiplication(TryExecuteExpression());
         }
 
         //кнопка М/
         private void buttonMDiv_Click(object sender, EventArgs e)
         {
-            C.M_Division(Convert.ToDouble(labelNumber.Text));
+            _c.M_Division(TryExecuteExpression());
         }
 
         //кнопка МRC
         private void buttonMRC_Click(object sender, EventArgs e)
         {
-            if (CanPress())
-            {
                 k++;
 
                 if (k == 1)
-                    labelNumber.Text = C.MemoryShow().ToString();
+                    labelNumber.Text = _c.MemoryShow().ToString();
 
                 if (k == 2)
                 {
-                    C.Memory_Clear();
+                    _c.Memory_Clear();
                     labelNumber.Text = "0";
 
                     k = 0;
                 }
-            }
         }
 
-
-
-
-
-
-
-
-        //проверяет не нажата ли еще какая-либо из кнопок мат.операций
-        private bool CanPress()
+        private void LParan_Click(object sender, EventArgs e)
         {
-            if (!buttonMult.Enabled)
-                return false;
-
-            if (!buttonDiv.Enabled)
-                return false;
-
-            if (!buttonPlus.Enabled)
-                return false;
-
-            if (!buttonMinus.Enabled)
-                return false;
-
-            if (!buttonSqrtX.Enabled)
-                return false;
-
-            if (!buttonDegreeY.Enabled)
-                return false;
-
-            return true;
+            labelNumber.Text += '(';
         }
 
-        //снятие нажатия всех кнопок мат.операций
-        private void FreeButtons()
+        private void RParan_Click(object sender, EventArgs e)
         {
-            buttonMult.Enabled = true;
-            buttonDiv.Enabled = true;
-            buttonPlus.Enabled = true;
-            buttonMinus.Enabled = true;
-            buttonSqrtX.Enabled = true;
-            buttonDegreeY.Enabled = true;
+            labelNumber.Text += ')';
         }
-
-
-
-        
-
-
-        
-
-        
     }
 }

@@ -67,7 +67,6 @@
     <Compile Include="Form\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="InterfaceCalc.cs" />
     <Compile Include="CalcMathematics\Math.cs" />
     <Compile Include="Parser\AST\BinaryExprAST.cs" />
     <Compile Include="Parser\AST\ExprAST.cs" />
