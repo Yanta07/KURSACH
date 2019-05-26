@@ -37,7 +37,7 @@ namespace CalculatorUnitTests
 
             Assert.AreEqual(Parser.Parse("2 ^ 3 -- 3 @ 64").Eval(null), 12);
             
-            Assert.AreEqual(Parser.Parse("-- 3 @ 64").Eval(null), 4);
+            Assert.AreEqual(Parser.Parse("-- 3 @ 64").Eval(null), 4, 1e-6);
         }
 
         [TestMethod]
