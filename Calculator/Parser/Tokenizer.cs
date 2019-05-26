@@ -83,16 +83,10 @@ namespace calculator.Parser
                     NextChar();
                     Token = Token.Pow;
                     return;
-            }
-
-            if (_curChar == 'y')
-            {
-                NextChar();
-                if (_curChar == 'r')
-                {
+                case '@':
                     NextChar();
                     Token = Token.YRoot;
-                }
+                    return;
             }
 
             if (char.IsDigit(_curChar) || _curChar == '.')
