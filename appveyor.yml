@@ -1,0 +1,14 @@
+image: Visual Studio 2017
+
+before_build:
+- nuget restore
+- choco install opencover.portable
+- choco install codecov
+
+build:
+ project: calculator.sln
+ verbosity: minimal
+
+artifacts:
+- path: calculator/bin/Debug/calculator.exe
+  name: calculator
