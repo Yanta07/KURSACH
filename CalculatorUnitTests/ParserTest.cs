@@ -29,6 +29,18 @@ namespace CalculatorUnitTests
         }
 
         [TestMethod]
+        public void PowYRootTest()
+        {
+            Assert.AreEqual(Parser.Parse("2 ^ 3").Eval(null), 8);
+
+            Assert.AreEqual(Parser.Parse("2 ^ 3 -16 yr 2").Eval(null), 4);
+
+            Assert.AreEqual(Parser.Parse("2 ^ 3 -- 64 yr 3").Eval(null), 12);
+            
+            Assert.AreEqual(Parser.Parse("-- 64 yr 3").Eval(null), 4);
+        }
+
+        [TestMethod]
         public void UnaryTest()
         {
             Assert.AreEqual(Parser.Parse("-10").Eval(null), -10);

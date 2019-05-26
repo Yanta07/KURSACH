@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using calculator.CalcMathematics;
 using calculator.Parser.AST;
 using calculator.Parser.Exceptions;
 
@@ -79,6 +80,17 @@ namespace calculator.Parser
             while (true)
             {
                 Func<double, double, double> op = null;
+
+
+                if (_tokenizer.Token == Token.Pow)
+                {
+                    op = Math.Pow;
+                }
+
+                if (_tokenizer.Token == Token.YRoot)
+                {
+                    op = CalcMath.YRoot;
+                }
 
                 if (_tokenizer.Token == Token.Mul)
                 {

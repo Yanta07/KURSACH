@@ -10,6 +10,8 @@ namespace calculator.Parser
         Minus,
         Mul,
         Div,
+        Pow,
+        YRoot,
         LParen,
         RParen,
         NumberSplit,
