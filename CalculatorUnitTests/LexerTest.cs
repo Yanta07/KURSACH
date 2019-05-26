@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CalculatorUnitTests
 {
     [TestClass]
-    public class LexerUnitTests
+    public class LexerTest
     {
         [TestMethod]
         public void TokenizerTest()
