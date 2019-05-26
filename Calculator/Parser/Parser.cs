@@ -38,7 +38,7 @@ namespace calculator.Parser
             var expr = ParseAddSubstract();
             if (_tokenizer.Token != Token.Eof)
             {
-                throw new SyntaxException("Unxpected characters at end of expression");
+                throw new SyntaxException("Unexpected characters at end of expression");
             }
 
             return expr;
