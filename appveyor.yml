@@ -12,3 +12,8 @@ build:
 artifacts:
 - path: calculator/bin/Debug/calculator.exe
   name: calculator
+
+branches:
+  only:
+    - master
+    - dev
