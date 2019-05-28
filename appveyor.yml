@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 before_build:
 - nuget restore
@@ -6,21 +6,12 @@ before_build:
 - choco install codecov
 
 build:
- project: calculator.sln
- verbosity: minimal
-
-artifacts:
-- path: calculator/bin/Debug/calculator.exe
-  name: calculator
+  project: calculator.sln
+  verbosity: minimal
 
 test_script:
- - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll  -noshadow" -output:"coverage.xml" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" 
-- codecov -f "MyProject_coverage.xml
-
-after_test:
-  - ps: |
-      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.s
+- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll  -noshadow" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
+- codecov -f "Calculator_coverage.xml
 
 
 branches:
