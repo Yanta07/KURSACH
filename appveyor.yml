@@ -12,11 +12,7 @@ build:
 artifacts:
 - path: calculator/bin/Debug/calculator.exe
   name: calculator
-
-branches:
-  only:
-    - master
-    - dev
+  
 before_build:
  - nuget restore
 build_script:
@@ -27,3 +23,9 @@ after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.s
+
+branches:
+  only:
+    - master
+    - dev
+
