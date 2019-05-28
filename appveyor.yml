@@ -12,17 +12,16 @@ build:
 artifacts:
 - path: calculator/bin/Debug/calculator.exe
   name: calculator
-  
-before_build:
- - nuget restore
-build_script:
- - msbuild /verbosity:quiet "calculator.sln"
+
 test_script:
- - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll  -noshadow" -output:"coverage.xml" -filter:"+[CalculatorUnitTests*]* -[CalculatorUnitTests*]*"
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll  -noshadow" -output:"coverage.xml" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" 
+- codecov -f "MyProject_coverage.xml
+
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.s
+
 
 branches:
   only:
