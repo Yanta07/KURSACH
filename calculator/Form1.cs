@@ -8,387 +8,177 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace calculator
+namespace Calculator
 {
     public partial class Form1 : Form
     {
-        Calc C;
-
-        int k; //количество нажатий кнопки MRC
-
         public Form1()
         {
             InitializeComponent();
-
-            C = new Calc();
-
-            labelNumber.Text = "0";
         }
 
-        //кнопка Очистка (CE)
-        private void buttonClear_Click(object sender, EventArgs e)
+        float a, b;
+        int count;
+        bool znak = true;
+
+        private void button17_Click(object sender, EventArgs e)
         {
-            labelNumber.Text = "0";
-
-            C.Clear_A();
-            FreeButtons();
-
-            k = 0;
+            textBox1.Text = textBox1.Text + 0;
         }
 
-        //кнопка изменения знака у числа
-        private void buttonChangeSign_Click(object sender, EventArgs e)
+        private void button18_Click(object sender, EventArgs e)
         {
-            if (labelNumber.Text[0] == '-')
-                labelNumber.Text = labelNumber.Text.Remove(0, 1);
-            else
-                labelNumber.Text = "-" + labelNumber.Text;
+            textBox1.Text = textBox1.Text + ",";
         }
 
-        private void buttonPoint_Click(object sender, EventArgs e)
+        private void button13_Click(object sender, EventArgs e)
         {
-            if ((labelNumber.Text.IndexOf(",") == -1) && (labelNumber.Text.IndexOf("∞") == -1))
-                labelNumber.Text += ",";
+            textBox1.Text = textBox1.Text + 1;
         }
 
-        private void button0_Click(object sender, EventArgs e)
+        private void button14_Click(object sender, EventArgs e)
         {
-            labelNumber.Text += "0";
-
-            CorrectNumber();
+            textBox1.Text = textBox1.Text + 2;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button15_Click(object sender, EventArgs e)
         {
-            labelNumber.Text += "1";
-
-            CorrectNumber();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "2";
-
-            CorrectNumber();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "3";
-
-            CorrectNumber();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "4";
-
-            CorrectNumber();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "5";
-
-            CorrectNumber();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "6";
-
-            CorrectNumber();
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "7";
-
-            CorrectNumber();
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            labelNumber.Text += "8";
-
-            CorrectNumber();
+            textBox1.Text = textBox1.Text + 3;
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            labelNumber.Text += "9";
-
-            CorrectNumber();
+            textBox1.Text = textBox1.Text + 4;
         }
 
-        //удаляем лишний ноль впереди числа, если таковой имеется
-        private void CorrectNumber()
+        private void button10_Click(object sender, EventArgs e)
         {
-            //если есть знак "бесконечность" - не даёт писать цифры после него
-            if (labelNumber.Text.IndexOf("∞") != -1)
-                labelNumber.Text = labelNumber.Text.Substring(0, labelNumber.Text.Length - 1);
-
-            //ситуация: слева ноль, а после него НЕ запятая, тогда ноль можно удалить
-            if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(",") != 1))
-                labelNumber.Text = labelNumber.Text.Remove(0, 1);
-
-            //аналогично предыдущему, только для отрицательного числа
-            if (labelNumber.Text[0] == '-')
-                if (labelNumber.Text[1] == '0' && (labelNumber.Text.IndexOf(",") != 2))
-                    labelNumber.Text = labelNumber.Text.Remove(1, 1);
+            textBox1.Text = textBox1.Text + 5;
         }
 
-
-
-        //кнопка Равно
-        private void buttonCalc_Click(object sender, EventArgs e)
+        private void button11_Click(object sender, EventArgs e)
         {
-            if (!buttonMult.Enabled)
-                labelNumber.Text = C.Multiplication(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonDiv.Enabled)
-                labelNumber.Text = C.Division(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonPlus.Enabled)
-                labelNumber.Text = C.Sum(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonMinus.Enabled)
-                labelNumber.Text = C.Subtraction(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonSqrtX.Enabled)
-                labelNumber.Text = C.SqrtX(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (!buttonDegreeY.Enabled)
-                labelNumber.Text = C.DegreeY(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            C.Clear_A();
-            FreeButtons();
-
-            k = 0;
+            textBox1.Text = textBox1.Text + 6;
         }
 
-
-
-
-
-        //кнопка Умножение
-        private void buttonMult_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
-            if(CanPress())
+            textBox1.Text = textBox1.Text + 7;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox1.Text + 8;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox1.Text + 9;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(znak==true)
             {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
+                textBox1.Text = "-" + textBox1.Text;
+                znak = false;
+            }
+            else if (znak==false)
+            {
+                textBox1.Text=textBox1.Text.Replace("-", "");
+                znak = true;
+            }
+            
+        }
 
-                buttonMult.Enabled = false;
+        private void calculate()
+        {
 
-                labelNumber.Text = "0";
+            switch (count)
+            {
+                case 1:
+                    b = a + float.Parse(textBox1.Text);
+                    textBox1.Text = b.ToString();
+                    break;
+
+                case 2:
+                    b = a - float.Parse(textBox1.Text);
+                    textBox1.Text = b.ToString();
+                    break;
+                case 3:
+                    b = a * float.Parse(textBox1.Text);
+                    textBox1.Text = b.ToString();
+                    break;
+                case 4:
+                    b = a / float.Parse(textBox1.Text);
+                    textBox1.Text = b.ToString();
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            a = float.Parse(textBox1.Text);
+            textBox1.Clear();
+            count = 1;
+            label1.Text = a.ToString() + "+";
+            znak = true;
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            a = float.Parse(textBox1.Text);
+            textBox1.Clear();
+            count = 2;
+            label1.Text = a.ToString() + "-";
+            znak = true;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            a = float.Parse(textBox1.Text);
+            textBox1.Clear();
+            count = 3;
+            label1.Text = a.ToString() + "*";
+            znak = true;
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            a = float.Parse(textBox1.Text);
+            textBox1.Clear();
+            count = 4;
+            label1.Text = a.ToString() + "/";
+            znak = true;
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            calculate();
+            label1.Text = "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            label1.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int lenght = textBox1.Text.Length - 1;
+            string text = textBox1.Text;
+            textBox1.Clear();
+            for (int i = 0; i < lenght; i++)
+            {
+                textBox1.Text = textBox1.Text + text[i];
             }
         }
-
-        //кнопка Деление
-        private void buttonDiv_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonDiv.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
-        }
-
-        //кнопка Сложение
-        private void buttonPlus_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonPlus.Enabled = false;
-
-                labelNumber.Text += "+";
-            }
-        }
-
-        //кнопка Вычитание
-        private void buttonMinus_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonMinus.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
-        }
-
-        //кнопка Корень произвольной степени
-        private void buttonSqrtX_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonSqrtX.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
-        }
-
-        //кнопка Возведение в произвольную степень
-        private void buttonDegreeY_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                buttonDegreeY.Enabled = false;
-
-                labelNumber.Text = "0";
-            }
-        }
-
-        //кнопка Корень квадратный
-        private void buttonSqrt_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                labelNumber.Text = C.Sqrt().ToString();
-
-                C.Clear_A();
-                FreeButtons();
-            }
-        }
-
-        //кнопка Квадрат числа
-        private void buttonSquare_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                labelNumber.Text = C.Square().ToString();
-
-                C.Clear_A();
-                FreeButtons();
-            }
-        }
-
-        //кнопка Факториал
-        private void buttonFactorial_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
-                    ((Convert.ToDouble(labelNumber.Text) >= 0.0)))
-                {
-                    C.Put_A(Convert.ToDouble(labelNumber.Text));
-
-                    labelNumber.Text = C.Factorial().ToString();
-
-                    C.Clear_A();
-                    FreeButtons();
-                }
-                else
-                    MessageBox.Show("Число должно быть >= 0 и целым!");
-            }
-        }
-
-        //кнопка М+
-        private void buttonMPlus_Click(object sender, EventArgs e)
-        {
-            C.M_Sum(Convert.ToDouble(labelNumber.Text));
-        }
-
-        //кнопка М-
-        private void buttonMMinus_Click(object sender, EventArgs e)
-        {
-            C.M_Subtraction(Convert.ToDouble(labelNumber.Text));
-        }
-
-        //кнопка М*
-        private void buttonMMult_Click(object sender, EventArgs e)
-        {
-            C.M_Multiplication(Convert.ToDouble(labelNumber.Text));
-        }
-
-        //кнопка М/
-        private void buttonMDiv_Click(object sender, EventArgs e)
-        {
-            C.M_Division(Convert.ToDouble(labelNumber.Text));
-        }
-
-        //кнопка МRC
-        private void buttonMRC_Click(object sender, EventArgs e)
-        {
-            if (CanPress())
-            {
-                k++;
-
-                if (k == 1)
-                    labelNumber.Text = C.MemoryShow().ToString();
-
-                if (k == 2)
-                {
-                    C.Memory_Clear();
-                    labelNumber.Text = "0";
-
-                    k = 0;
-                }
-            }
-        }
-
-
-
-
-
-
-
-
-        //проверяет не нажата ли еще какая-либо из кнопок мат.операций
-        private bool CanPress()
-        {
-            if (!buttonMult.Enabled)
-                return false;
-
-            if (!buttonDiv.Enabled)
-                return false;
-
-            if (!buttonPlus.Enabled)
-                return false;
-
-            if (!buttonMinus.Enabled)
-                return false;
-
-            if (!buttonSqrtX.Enabled)
-                return false;
-
-            if (!buttonDegreeY.Enabled)
-                return false;
-
-            return true;
-        }
-
-        //снятие нажатия всех кнопок мат.операций
-        private void FreeButtons()
-        {
-            buttonMult.Enabled = true;
-            buttonDiv.Enabled = true;
-            buttonPlus.Enabled = true;
-            buttonMinus.Enabled = true;
-            buttonSqrtX.Enabled = true;
-            buttonDegreeY.Enabled = true;
-        }
-
-
-
-        
-
-
-        
 
         
     }
