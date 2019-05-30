@@ -78,6 +78,19 @@ namespace CalculatorUnitTests
             Assert.AreEqual(Parser.Parse("-(-(10 + 15) + 5) * 15").Eval(null), 300);
         }
 
+        [TestMethod]
+        public void MissingRParan()
+        {
+            try
+            {
+                Parser.Parse("2+(3-1").Eval(null);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(e.Message,"Missing closing parenthesis");
+            }
+        }
+
         class TestLib
         {
             public double Sqrt(double value)
