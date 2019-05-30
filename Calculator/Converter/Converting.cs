@@ -1,5 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 
 namespace calculator.Converter
 {
@@ -9,7 +11,6 @@ namespace calculator.Converter
         {
             double value1 = 0;
             double value2 = 0;
-            double value = 0;
             if (input1.Contains("Метры"))
                 value1 = 1;
             if (input1.Contains("Кило"))
@@ -96,7 +97,7 @@ namespace calculator.Converter
             if (input2.Contains("Кубические"))
                 value2 = Math.Pow(value2, 3);
 
-            value = value1 / value2;
+            var value = value1 / value2;
 
             return value;
         }
@@ -105,7 +106,6 @@ namespace calculator.Converter
         {
             double value1 = 0;
             double value2 = 0;
-            double value = 0;
             if (input1.Contains("Грамм"))
                 value1 = 1;
             if (input1.Contains("Кило"))
@@ -140,7 +140,7 @@ namespace calculator.Converter
             if (input2.Contains("Унция"))
                 value2 = 28.3495231;
 
-            value = value1 / value2;
+            var value = value1 / value2;
 
             return value;
         }
