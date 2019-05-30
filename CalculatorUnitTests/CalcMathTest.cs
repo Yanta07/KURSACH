@@ -1,4 +1,5 @@
-﻿using calculator.CalcMathematics;
+﻿using System;
+using calculator.CalcMathematics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CalculatorUnitTests
@@ -6,6 +7,16 @@ namespace CalculatorUnitTests
     [TestClass]
     public class CalcMathTest
     {
+        [TestMethod]
+        public void TestPiAndEpsionConst()
+        {
+            var cMath = new CalcMath();
+
+            Assert.AreEqual(cMath.pi, Math.PI);
+
+            Assert.AreEqual(cMath.e, Math.E);
+        }
+
         [TestMethod]
         public void YRootTest()
         {
@@ -46,6 +57,7 @@ namespace CalculatorUnitTests
         {
             Assert.AreEqual(CalcMath.Tan(3.1415926535897931), 0);
             Assert.AreEqual(CalcMath.Tan(4.71238898038469), double.NaN);
+            Assert.AreEqual(CalcMath.Tan(1.5), 14.101419947171719);
         }
 
         [TestMethod]

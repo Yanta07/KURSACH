@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using calculator.Parser;
 using calculator.Parser.Context;
+using calculator.Parser.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CalculatorUnitTests
@@ -89,6 +91,53 @@ namespace CalculatorUnitTests
             }
         }
 
+        class TestVar
+        {
+            public TestVar(double epsilon)
+            {
+                this.Epsilon = epsilon;
+            }
+
+            public double GetEpsilon()
+            {
+                return this.Epsilon;
+            }
+
+            public double Epsilon { get; }
+        }
+
+        [TestMethod]
+        public void TestVariable()
+        {
+            var lib = new TestVar(1e-8);
+
+            var context = new ReflectionContext(lib);
+
+            Assert.AreEqual(Parser.Parse("Epsilon").Eval(context), 1e-8);
+
+            try
+            {
+                Parser.Parse("pi").Eval(context);
+            }
+            catch (Exception e)
+            {
+                Assert.IsTrue(e is InvalidDataException);
+            }
+        }
+
+        [TestMethod]
+        public void TestSyntaxException()
+        {
+            try
+            {
+                Parser.Parse("2+").Eval(null);
+            }
+            catch (Exception e)
+            {
+                Assert.IsTrue(e is SyntaxException);
+            }
+        }
+
         [TestMethod]
         public void TestLibrary()
         {
@@ -99,6 +148,16 @@ namespace CalculatorUnitTests
             Assert.AreEqual(Parser.Parse("Sqrt(4)").Eval(context), 2);
 
             Assert.AreEqual(Parser.Parse("SqrtWithArg(4, 2)").Eval(context), 2);
+
+
+            try
+            {
+                Parser.Parse("Pow(4)").Eval(context);
+            }
+            catch (Exception e)
+            {
+                Assert.IsTrue(e is InvalidDataException);
+            }
         }
     }
 }
