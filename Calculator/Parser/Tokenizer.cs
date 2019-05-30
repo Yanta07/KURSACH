@@ -1,8 +1,5 @@
 ﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// This is a personal academic project. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Globalization;
 using System.IO;
@@ -93,11 +90,15 @@ namespace calculator.Parser
             {
                 var stringBuilder = new StringBuilder();
                 bool decimalPoint = false;
-
-                while (char.IsDigit(_curChar) || (!decimalPoint && _curChar == '.'))
+                bool haveSciNotation = false;
+                while (char.IsDigit(_curChar) || 
+                       (!decimalPoint && _curChar == '.') || 
+                       (!haveSciNotation && _curChar == 'E') ||
+                       (haveSciNotation && (_curChar == '+' || _curChar == '-')))
                 {
                     stringBuilder.Append(_curChar);
                     decimalPoint = _curChar == '.';
+                    haveSciNotation = _curChar == 'E';
                     NextChar();
                 }
 

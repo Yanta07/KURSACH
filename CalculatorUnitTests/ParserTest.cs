@@ -54,6 +54,15 @@ namespace CalculatorUnitTests
             Assert.AreEqual(Parser.Parse("10 + -20 - + 45").Eval(null), -55);
         }
 
+        [TestMethod]
+        public void ScientificNotationTest()
+        {
+            Assert.AreEqual(Parser.Parse("1E-6").Eval(null), 1e-6);
+
+            Assert.AreEqual(Parser.Parse("1E+6").Eval(null), 1e+6);
+
+            Assert.AreEqual(Parser.Parse("10E+2").Eval(null), 10e+2);
+        }
 
         [TestMethod]
         public void OperationsOrderTest()
