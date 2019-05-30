@@ -368,12 +368,5 @@ namespace calculator.Form
                 (Screen.PrimaryScreen.Bounds.Height - Height) / 2+100);
         }
 
-        private void ОПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutBox1 ab = new AboutBox1();
-            ab.Show();
-            ab.Location = new Point((Screen.PrimaryScreen.Bounds.Width - Width) / 2 + 50,
-                (Screen.PrimaryScreen.Bounds.Height - Height) / 2 + 100);
-        }
     }
-    }
+}

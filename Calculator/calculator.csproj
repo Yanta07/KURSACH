@@ -62,12 +62,6 @@
   <ItemGroup>
     <Compile Include="Calc.cs" />
     <Compile Include="Converter\Converting.cs" />
-    <Compile Include="Form\AboutBox1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\AboutBox1.Designer.cs">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,9 +89,6 @@
     <Compile Include="Parser\Tokenizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form\AboutBox1.resx">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
