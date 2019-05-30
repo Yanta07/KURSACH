@@ -1,6 +1,7 @@
 ﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using calculator.CalcMathematics;
@@ -186,6 +187,7 @@ namespace calculator.Form
             _c.Clear_A();
 
             k = 0;
+
         }
 
         //кнопка Умножение
@@ -295,6 +297,87 @@ namespace calculator.Form
         private void RParan_Click(object sender, EventArgs e)
         {
             labelNumber.Text += ')';
+        }
+
+        private void Cos_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Cos(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Cos(" + lastNumber + ")";
+        }
+
+        private void Sin_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Sin(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Sin(" + lastNumber + ")";
+        }
+
+        private void Tan_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Tan(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Tan(" + lastNumber + ")";
+        }
+
+        private void Acos_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Acos(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Acos(" + lastNumber + ")";
+        }
+
+        private void Asin_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Asin(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Asin(" + lastNumber + ")";
+        }
+
+        private void Atan_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Atan(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Atan(" + lastNumber + ")";
+        }
+
+        private void Log_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Log(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Log(" + lastNumber + ")";
+        }
+
+        private void Ln_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Ln(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Ln(" + lastNumber + ")";
+        }
+
+        private void Proc_Click(object sender, EventArgs e)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += "Proc(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Proc(" + lastNumber + ")";
+        }
+
+        private void Pi_Click(object sender, EventArgs e)
+        {
+            labelNumber.Text += "3.1415926535897931";
+        }
+
+        private void Button20_Click(object sender, EventArgs e)
+        {
+            labelNumber.Text += "2.71828183";
+        }
+
+        private void РежимToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+            form2.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2 + 50,
+                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2+100);
         }
     }
 }
