@@ -1,4 +1,4 @@
-image: Visual Studio 2015
+image: Visual Studio 2019
 
 before_build:
 - nuget restore
@@ -8,13 +8,13 @@ before_build:
 build:
   project: calculator.sln
   verbosity: minimal
-
-test_script:
-- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll -noshadow" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
-- codecov -f "Calculator_coverage.xml" -t 833e676a-d5df-4ae9-ac0b-ca5605ff79f5
-
+  
 branches:
   only:
     - master
     - dev
+    - conv
 
+test_script:
+- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll -noshadow" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
+- codecov -f "Calculator_coverage.xml" -t 833e676a-d5df-4ae9-ac0b-ca5605ff79f5
