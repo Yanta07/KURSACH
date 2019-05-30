@@ -1,4 +1,6 @@
-﻿
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 using System;
 using System.Linq;
 
@@ -6,6 +8,17 @@ namespace calculator.CalcMathematics
 {
     public class CalcMath
     {
+        public double pi { get; }
+        public double e { get; }
+
+        private static double _tolerance = 1e-8;
+
+        public CalcMath()
+        {
+            pi = Math.PI;
+            e = Math.E;
+        }
+
         public static double YRoot(double a, double b)
         {
             return Math.Pow(Math.Abs(b), 1.0 / Math.Abs(a)) * Math.Sign(a);
@@ -23,34 +36,25 @@ namespace calculator.CalcMathematics
 
         public static double Cos(double number)
         {
-            if ((Math.Round(number, 5) == Math.Round(Math.PI / 2, 5)) || (number == 3 * Math.PI / 2))
-                return (0);
-            else
-            {
-                return Math.Cos(number);
-            }
+            if (Math.Abs(Math.Round(number, 5) - Math.Round(Math.PI / 2, 5)) < _tolerance || Math.Abs(number - 3 * Math.PI / 2) < _tolerance)
+                return 0;
+            return Math.Cos(number);
         }
 
         public static double Sin(double number)
         {
-            if ((number == Math.PI) || (Math.Round(number, 5) == Math.Round(2 * Math.PI, 5)))
-                return (0);
-            else
-            {
-                return Math.Sin(number);
-            }
+            if (Math.Abs(number - Math.PI) < _tolerance || Math.Abs(Math.Round(number, 5) - Math.Round(2 * Math.PI, 5)) < _tolerance)
+                return 0;
+            return Math.Sin(number);
         }
 
         public static double Tan(double number)
         {
-            if ((Math.Round(number, 5) == Math.Round(Math.PI / 2, 5)) || (number == 3 * Math.PI / 2))
+            if (Math.Abs(Math.Round(number, 5) - Math.Round(Math.PI / 2, 5)) < _tolerance || Math.Abs(number - 3 * Math.PI / 2) < _tolerance)
                 return (double.NaN);
-            else if (number == Math.PI) 
-                return (0);
-            else
-            {
-                return Math.Tan(number);
-            }
+            if (Math.Abs(number - Math.PI) < _tolerance) 
+                return 0;
+            return Math.Tan(number);
         }
 
         public static double Acos(double number)
@@ -80,7 +84,7 @@ namespace calculator.CalcMathematics
 
         public static double Proc(double number)
         {
-            return (number/100);
+            return number / 100;
         }
     }
 }
