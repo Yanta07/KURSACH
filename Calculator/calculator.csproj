@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calc.cs" />
     <Compile Include="Converter\Converting.cs" />
     <Compile Include="Form\Form2.cs">
       <SubType>Form</SubType>

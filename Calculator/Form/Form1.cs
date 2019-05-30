@@ -13,17 +13,13 @@ namespace calculator.Form
 {
     public partial class Form1 : System.Windows.Forms.Form
     {
-        readonly Calc _c;
         private CalcMath _cMath;
-
-        int k; //количество нажатий кнопки MRC
 
         public Form1()
         {
             InitializeComponent();
 
             _cMath = new CalcMath();
-            _c = new Calc();
 
             labelNumber.Text = "0";
         }
@@ -32,10 +28,6 @@ namespace calculator.Form
         private void buttonClear_Click(object sender, EventArgs e)
         {
             labelNumber.Text = "0";
-
-            _c.Clear_A();
-
-            k = 0;
         }
 
         //кнопка изменения знака у числа
@@ -185,10 +177,6 @@ namespace calculator.Form
         {
             labelNumber.Text = TryExecuteExpression().ToString(CultureInfo.InvariantCulture);
 
-            _c.Clear_A();
-
-            k = 0;
-
         }
 
         //кнопка Умножение
@@ -250,47 +238,6 @@ namespace calculator.Form
         private void buttonFactorial_Click(object sender, EventArgs e)
         {
             SetLabelNumberFunction("Fact");
-        }
-
-        //кнопка М+
-        private void buttonMPlus_Click(object sender, EventArgs e)
-        {
-            _c.M_Sum(TryExecuteExpression());
-        }
-
-        //кнопка М-
-        private void buttonMMinus_Click(object sender, EventArgs e)
-        {
-            _c.M_Subtraction(TryExecuteExpression());
-        }
-
-        //кнопка М*
-        private void buttonMMult_Click(object sender, EventArgs e)
-        {
-            _c.M_Multiplication(TryExecuteExpression());
-        }
-
-        //кнопка М/
-        private void buttonMDiv_Click(object sender, EventArgs e)
-        {
-            _c.M_Division(TryExecuteExpression());
-        }
-
-        //кнопка МRC
-        private void buttonMRC_Click(object sender, EventArgs e)
-        {
-                k++;
-
-                if (k == 1)
-                    labelNumber.Text = _c.MemoryShow().ToString();
-
-                if (k == 2)
-                {
-                    _c.Memory_Clear();
-                    labelNumber.Text = "0";
-
-                    k = 0;
-                }
         }
 
         private void LParan_Click(object sender, EventArgs e)
