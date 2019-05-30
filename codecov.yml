@@ -1,3 +1,4 @@
 ignore:
  - "Calculator/Form/*"
  - "Calculator/Properties/*"
+ - "Calculator/Program.cs"
