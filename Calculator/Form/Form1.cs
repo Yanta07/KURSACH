@@ -1,5 +1,6 @@
 ﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -226,12 +227,17 @@ namespace calculator.Form
             labelNumber.Text += "^";
         }
 
+        private void SetLabelNumberFunction(string funcName)
+        {
+            string lastNumber = GetNumberFromEnd(labelNumber.Text);
+            if (lastNumber == "") labelNumber.Text += funcName + "(";
+            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + funcName + "(" + lastNumber + ")";
+        }
+
         //кнопка Корень квадратный
         private void buttonSqrt_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Root(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Root(" + lastNumber + ")";
+            SetLabelNumberFunction("Root");
         }
 
         //кнопка Квадрат числа
@@ -243,9 +249,7 @@ namespace calculator.Form
         //кнопка Факториал
         private void buttonFactorial_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Fact(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "")+"Fact("+lastNumber+")";
+            SetLabelNumberFunction("Fact");
         }
 
         //кнопка М+
@@ -301,91 +305,75 @@ namespace calculator.Form
 
         private void Cos_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Cos(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Cos(" + lastNumber + ")";
+            SetLabelNumberFunction("Cos");
         }
 
         private void Sin_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Sin(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Sin(" + lastNumber + ")";
+            SetLabelNumberFunction("Sin");
         }
 
         private void Tan_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Tan(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Tan(" + lastNumber + ")";
+            SetLabelNumberFunction("Tan");
         }
 
         private void Acos_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Acos(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Acos(" + lastNumber + ")";
+            SetLabelNumberFunction("Acos");
         }
 
         private void Asin_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Asin(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Asin(" + lastNumber + ")";
+            SetLabelNumberFunction("Asin");
         }
 
         private void Atan_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Atan(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Atan(" + lastNumber + ")";
+            SetLabelNumberFunction("Atan");
         }
 
         private void Log_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Log(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Log(" + lastNumber + ")";
+            SetLabelNumberFunction("Log");
         }
 
         private void Ln_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Ln(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Ln(" + lastNumber + ")";
+            SetLabelNumberFunction("Ln");
         }
 
         private void Proc_Click(object sender, EventArgs e)
         {
-            string lastNumber = GetNumberFromEnd(labelNumber.Text);
-            if (lastNumber == "") labelNumber.Text += "Proc(";
-            else labelNumber.Text = labelNumber.Text.Replace(lastNumber, "") + "Proc(" + lastNumber + ")";
+            SetLabelNumberFunction("Proc");
         }
 
         private void Pi_Click(object sender, EventArgs e)
         {
-            labelNumber.Text += "3.1415926535897931";
+            labelNumber.Text += "pi";
+            CorrectNumber();
         }
 
         private void Button20_Click(object sender, EventArgs e)
         {
-            labelNumber.Text += "2.71828183";
+            labelNumber.Text += "e";
+            CorrectNumber();
         }
 
         private void РежимToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
             form2.Show();
-            form2.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2 + 50,
-                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2+100);
+            form2.Location = new Point((Screen.PrimaryScreen.Bounds.Width - Width) / 2 + 50,
+                (Screen.PrimaryScreen.Bounds.Height - Height) / 2+100);
         }
 
         private void ОПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox1 ab = new AboutBox1();
             ab.Show();
-            ab.Location = new Point((Screen.PrimaryScreen.Bounds.Width - this.Width) / 2 + 50,
-                (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2 + 100);
+            ab.Location = new Point((Screen.PrimaryScreen.Bounds.Width - Width) / 2 + 50,
+                (Screen.PrimaryScreen.Bounds.Height - Height) / 2 + 100);
         }
     }
     }
