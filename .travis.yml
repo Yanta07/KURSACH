@@ -1,6 +1,0 @@
-language: csharp
-solution: calculator.sln
- branches:
-   only:
-     - master
-     - dev
