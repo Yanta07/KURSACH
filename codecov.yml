@@ -1,0 +1,3 @@
+ignore:
+ - "Calculator/Form/*"
+ - "Calculator/Properties/*"
