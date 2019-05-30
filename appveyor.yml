@@ -16,5 +16,5 @@ branches:
     - conv
 
 test_script:
-- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll -noshadow" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
+- OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\MSTest.exe" -targetargs:".\CalculatorUnitTests\bin\Debug\CalculatorUnitTests.dll -noshadow" -filter:"+[Calculator*]* -[CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
 - codecov -f "Calculator_coverage.xml" -t 833e676a-d5df-4ae9-ac0b-ca5605ff79f5
