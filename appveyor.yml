@@ -19,5 +19,8 @@ build:
   verbosity: minimal
 
 after_test:
-- OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\MSTest.exe" -targetargs:"/noresults /noisolation /testcontainer:"".\CalculatorUnitTests\bin\Release\CalculatorUnitTests.dll" -filter:"+[*]* -[calculator.CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
-- codecov -f "Calculator_coverage.xml" -t 833e676a-d5df-4ae9-ac0b-ca5605ff79f5
+- OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\MSTest.exe" -targetargs:"/noresults /noisolation /testcontainer:"".\CalculatorUnitTests\bin\Release\CalculatorUnitTests.dll" -filter:"+[calculator]* -[calculator.CalculatorUnitTests*]*" -output:".\Calculator_coverage.xml"
+- ps: |
+    $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+    Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+    bash codecov.sh -f "Calculator_coverage.xml" -t 833e676a-d5df-4ae9-ac0b-ca5605ff79f5
